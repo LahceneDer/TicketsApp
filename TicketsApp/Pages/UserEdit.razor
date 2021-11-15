@@ -1,0 +1,35 @@
+﻿@page "/EditUser/{userId}"
+
+<h2>Edit Employee</h2>
+<hr />
+
+<form>
+    <div class="row">
+        <div class="col-md-8">
+
+            <div class="form-group">
+                <label for="firstname" class="control-label">Name</label>
+                <input form="firstname" class="form-control" @bind="@obj.FirstName" />
+            </div>
+            <div class="form-group">
+                <label for="lastname" class="control-label">Name</label>
+                <input form="lastname" class="form-control" @bind="@obj.LastName" />
+            </div>
+
+            <div class="form-group">
+                <label for="email" class="control-label">Email</label>
+                <input form="email" class="form-control" @bind="@obj.Email" />
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <input type="button" class="btn btn-primary" @onclick="@UpdateUser" value="Update" />
+                <input type="button" class="btn btn-primary" @onclick="@Cancel" value="Cancel" />
+            </div>
+        </div>
+    </div>
+</form>

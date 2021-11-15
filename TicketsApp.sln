@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31829.152
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicketsApp", "TicketsApp\TicketsApp.csproj", "{49FE1BBF-DFE3-4058-98C5-DE1482C3D54D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess", "DataAccess\DataAccess.csproj", "{48410991-E094-4C2E-B80D-83E7542C615B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{0C005E9F-6EC7-4B90-B54E-CD3C35E3591B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Migrations", "Migrations", "{AD6D8E34-8618-4B52-903C-46B3F5CABCB9}"
+	ProjectSection(SolutionItems) = preProject
+		M_user_addemail.sql = M_user_addemail.sql
+		N'20211114154717_InitMigration.sql = N'20211114154717_InitMigration.sql
+		N'20211114160238_secondMigration.sql = N'20211114160238_secondMigration.sql
+		N'20211114160842_rename-tables.sql = N'20211114160842_rename-tables.sql
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{49FE1BBF-DFE3-4058-98C5-DE1482C3D54D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49FE1BBF-DFE3-4058-98C5-DE1482C3D54D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49FE1BBF-DFE3-4058-98C5-DE1482C3D54D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49FE1BBF-DFE3-4058-98C5-DE1482C3D54D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48410991-E094-4C2E-B80D-83E7542C615B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48410991-E094-4C2E-B80D-83E7542C615B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48410991-E094-4C2E-B80D-83E7542C615B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48410991-E094-4C2E-B80D-83E7542C615B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{AD6D8E34-8618-4B52-903C-46B3F5CABCB9} = {0C005E9F-6EC7-4B90-B54E-CD3C35E3591B}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7FF79AD5-1DB8-4374-B584-0C4BC8C8B09E}
+	EndGlobalSection
+EndGlobal

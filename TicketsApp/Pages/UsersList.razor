@@ -1,0 +1,47 @@
+﻿@page "/Users"
+@using DataAccess.Models
+@using TicketsApp.Services
+
+<NavLink class="nav-link" href="AddUser">
+    <span class=" btn btn-primary" aria-hidden="true">Add New</span>
+
+</NavLink>
+
+<h1>All Users</h1>
+@if (EmpObj is null)
+{
+    <p><em>Loading... !</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>User Id</th>
+                <th>User First Name</th>
+                <th>User Last Name</th>
+                <th>User Email</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach(var user in EmpObj)
+        {
+            <tr>
+                <td>@user.UserId</td>
+                <td>@user.FirstName</td>
+                <td>@user.LastName</td>
+                <td>@user.Email</td>
+                <td></td>
+                <td>
+                    <a class="nav-link" href="EditUser/@user.UserId">
+                        <span class="oi oi-pencil" aria-hidden="true">Edit</span>
+                    </a>
+                    <a class="nav-link" href="UserDelete/@user.UserId">
+                        <span class="oi oi-trash" aria-hidden="true">Delete</span>
+                    </a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
