@@ -66,6 +66,12 @@ namespace TicketsApp.Services
                     case "ReferenceInterne":
                         customer.ReferenceInterne = (int)newValue[field];
                         break;
+                    case "CustomerId":
+                        customer.CustomerId = (int)newValue[field];
+                        break;
+                    //case "UserId":
+                    //    customer.UserId = (int)newValue[field];
+                    //    break;
                     case "Telephone":
                         customer.Telephone = (string)newValue[field];
                         break;

@@ -24,13 +24,16 @@ namespace TicketsApp.Pages.Ticket
         private NoteDataService NoteDataService { get; set; }
         [Inject]
         private CustomerDataService CustomerDataService { get; set; }
+        [Inject]
+        private TicketTypeDataService TicketTypeDataService { get; set; }
 
         public ApplicationDbContext db { get; set; }
 
         public List<User> Userslist { get; set; }
-        public List<Role> Roleslist { get; set; }
+        public List<DataAccess.Models.Role> Roleslist { get; set; }
         public List<Note> Noteslist { get; set; }
         public List<DataAccess.Models.Ticket> Ticketslist { get; set; }
+        public List<DataAccess.Models.TicketType> TicketTypeslist { get; set; }
         public List<DataAccess.Models.Customer> Customerslist { get; set; }
         public int userId { get; set; } = 0;
         private bool PopupVisible { get; set; }
@@ -38,11 +41,13 @@ namespace TicketsApp.Pages.Ticket
         protected override void OnInitialized()
         {
  
-                db = new ApplicationDbContext();
+                //db = new ApplicationDbContext();
                 Userslist = UserDataService.GetAllUsers();
                 Roleslist = RoleDataService.GetAllRoles();
                 Noteslist = NoteDataService.GetAllNotes();
                 Customerslist = CustomerDataService.GetAllCustomers();
+                TicketTypeslist = TicketTypeDataService.GetAllTicketTypes();
+                Ticketslist = TicketDataService.GetAllTickets();
 
         }
 

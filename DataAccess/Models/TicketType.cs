@@ -10,6 +10,6 @@ namespace DataAccess.Models
     {
         public int TicketTypeId { get; set; }
         public string TicketTypeName { get; set; }
-        public List<Ticket> Tickets { get; set; }
+        public virtual List<Ticket> Tickets { get; set; }
     }
 }

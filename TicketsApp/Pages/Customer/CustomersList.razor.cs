@@ -28,7 +28,7 @@ namespace TicketsApp.Pages.Customer
         public ApplicationDbContext db { get; set; }
 
         public List<User> Userslist { get; set; }
-        public List<Role> Roleslist { get; set; }
+        public List<DataAccess.Models.Role> Roleslist { get; set; }
         public List<Note> Noteslist { get; set; }
         public List<DataAccess.Models.Customer> Customerslist { get; set; }
         public List<DataAccess.Models.Ticket> Ticketslist { get; set; }
@@ -37,13 +37,10 @@ namespace TicketsApp.Pages.Customer
 
         protected override void OnInitialized()
         {
- 
-                db = new ApplicationDbContext();
-                Userslist = UserDataService.GetAllUsers();
+            Userslist = UserDataService.GetAllUsers();
                 Roleslist = RoleDataService.GetAllRoles();
                 Noteslist = NoteDataService.GetAllNotes();
                 Customerslist = CustomerDataService.GetAllCustomers();
-
         }
 
         public void RefreshGrid()

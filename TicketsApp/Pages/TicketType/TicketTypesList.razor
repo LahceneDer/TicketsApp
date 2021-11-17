@@ -6,7 +6,7 @@
 
 
 
-<h3 style="color: #2163ac" class="PageHeader"> Tickets</h3>
+<h3 style="color: #2163ac" class="PageHeader"> Ticket Types</h3>
 
 <div class="GridActions">
     <DxButton RenderStyle="ButtonRenderStyle.Dark" @onclick="RefreshGrid" RenderStyleMode="ButtonRenderStyleMode.Outline" Text="Actualiser" SizeMode="@SizeMode.Small" IconCssClass="undo" style="margin: 0.5em;" />
@@ -14,12 +14,13 @@
 </div>
 
 <DxDataGrid Data="@TicketTypeslist"
-            KeyFieldName="TicketId"
+            KeyFieldName="TicketTypeId"
             DataNavigationMode="DataGridNavigationMode.VirtualScrolling"
-            PopupEditFormHeaderText="Ajouter/Editer ticket Types"
+            PopupEditFormHeaderText="Add/Edit ticket Type"
             PopupEditFormCssClass="my-style"
             PageSize="25"
             ShowFilterRow="true"
+            ShowGroupPanel="true"
             VerticalScrollableHeight="400"
             VerticalScrollBarMode="ScrollBarMode.Auto"
             RowRemoving="@((dataItem) => OnRowRemoving(dataItem))"
@@ -29,10 +30,10 @@
             HorizontalScrollBarMode="ScrollBarMode.Visible"
             EditMode="DataGridEditMode.PopupEditForm">
     <Columns>
-        <DxDataGridCommandColumn Width="150px"></DxDataGridCommandColumn>
-        <DxDataGridColumn Width="80px" Field="TicketTypeId" EditorVisible="false" Caption="Id" />
+        <DxDataGridCommandColumn Width="80px"></DxDataGridCommandColumn>
+        <DxDataGridColumn Width="50px" Field="TicketTypeId" Visible="true" EditorVisible="false" Caption="Id" />
+        <DxDataGridColumn Width="100px" Field="TicketTypeName" EditorVisible="true" Caption="Ticket Type Name" />
 
-        <DxDataGridColumn Width="80px" Field="TicketTypeName" EditorVisible="true" Caption="Ticket Type Name" />
     </Columns>
 </DxDataGrid>
 

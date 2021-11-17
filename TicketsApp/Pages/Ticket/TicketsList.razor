@@ -16,7 +16,9 @@
 <DxDataGrid Data="@Ticketslist"
             KeyFieldName="TicketId"
             DataNavigationMode="DataGridNavigationMode.VirtualScrolling"
-            PopupEditFormHeaderText="Ajouter/Editer tickets"
+            ShowGroupPanel="true"
+            HorizontalScrollBarMode="ScrollBarMode.Visible"
+            PopupEditFormHeaderText="Add/Edit ticket"
             PopupEditFormCssClass="my-style"
             PageSize="25"
             ShowFilterRow="true"
@@ -26,11 +28,10 @@
             RowInserting="@((newValues) => OnRowInserting(newValues))"
             RowUpdating="@((updatingDataItem, newValues) => OnRowUpdating(updatingDataItem, newValues))"
             CssClass="mw-1100"
-            HorizontalScrollBarMode="ScrollBarMode.Visible"
             EditMode="DataGridEditMode.PopupEditForm">
     <Columns>
-        <DxDataGridCommandColumn Width="150px"></DxDataGridCommandColumn>
-        <DxDataGridColumn Width="80px" Field="TicketId" EditorVisible="false" Caption="Id" />
+        <DxDataGridCommandColumn Width="120px"></DxDataGridCommandColumn>
+        <DxDataGridColumn Width="50px" Field="TicketId" Visible="true" EditorVisible="false" Caption="Id" />
         <DxDataGridComboBoxColumn Width="180px" Field="@nameof(User.UserId)"
                                   Caption="User"
                                   Data="@Userslist"
@@ -69,10 +70,29 @@
                 </DxComboBox>
             </EditTemplate>
         </DxDataGridComboBoxColumn>
-        <DxDataGridDateEditColumn Width="80px" Field="DateDeResoudre" EditorVisible="true" Caption="Date De Resoudre" />
-        <DxDataGridDateEditColumn Width="80px" Field="Duree" EditorVisible="true" Caption="Duree" />
-        <DxDataGridDateEditColumn Width="80px" Field="Date" EditorVisible="true" Caption="Date" />
-        <DxDataGridColumn Width="80px" Field="Description" EditorVisible="true" Caption="Description" />
+        <DxDataGridComboBoxColumn Width="180px" Visible="true" EditorVisible="true" Field="@nameof(TicketType.TicketTypeId)"
+                                  Caption="TicketType"
+                                  Data="@TicketTypeslist"
+                                  TextFieldName="@nameof(TicketType.TicketTypeName)"
+                                  ValueFieldName="@nameof(TicketType.TicketTypeId)">
+            <EditTemplate>
+                <DxComboBox Data="@TicketTypeslist"
+                            ListRenderMode="ListRenderMode.Virtual"
+                            FilteringMode="DataGridFilteringMode.Contains"
+                            ClearButtonDisplayMode="@DataEditorClearButtonDisplayMode.Auto"
+                            TextFieldName="@nameof(TicketType.TicketTypeName)"
+                            ValueFieldName="@nameof(TicketType.TicketTypeId)"
+                            SelectedItemChanged="@(newCellValue => ((CellEditContext)context).OnChanged(newCellValue.TicketTypeId))"
+                            Value="@(((CellEditContext)context).CellValue)">
+                    <DxListEditorColumn FieldName="TicketTypeId" />
+                    <DxListEditorColumn FieldName="TicketTypeName" />
+                </DxComboBox>
+            </EditTemplate>
+        </DxDataGridComboBoxColumn>
+        <DxDataGridDateEditColumn Width="120px" Field="DateDeResoudre" EditorVisible="true" Caption="Date De Resoudre" />
+        <DxDataGridDateEditColumn Width="120px" Field="Duree" DisplayFormat="T" EditorVisible="true" Caption="Duree" />
+        <DxDataGridDateEditColumn Width="120px" Field="Date" EditorVisible="true" Caption="Date" />
+        <DxDataGridColumn Width="80px" Field="Description" EditorVisible="true" Visible="false" Caption="Description" />
 
         @*<DxDataGridColumn Width="180px" Field="UserName" Caption="Login" />
         <DxDataGridColumn Width="180px" Field="UserNom" Caption="Nom" />

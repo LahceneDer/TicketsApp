@@ -28,6 +28,7 @@ namespace TicketsApp.Services
             return ticket;
         }
 
+
         public void DeleteTicket(int ticketId)
         {
             var c = _appContext.Tickets.Find(ticketId);
@@ -57,9 +58,12 @@ namespace TicketsApp.Services
                     case "UserId":
                         ticket.UserId = (int)newValue[field];
                         break;
-                    //case "TicketTypeId":
-                    //    ticket.TicketTypeId = (int)newValue[field];
-                    //    break;
+                    case "TicketTypeId":
+                        ticket.TicketTypeId = (int)newValue[field];
+                        break;
+                    case "TicketId":
+                        ticket.TicketId = (int)newValue[field];
+                        break;
                     case "CustomerId":
                         ticket.CustomerId = (int)newValue[field];
                         break;

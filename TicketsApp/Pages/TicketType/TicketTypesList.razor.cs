@@ -30,7 +30,7 @@ namespace TicketsApp.Pages.TicketType
         public ApplicationDbContext db { get; set; }
 
         public List<User> Userslist { get; set; }
-        public List<Role> Roleslist { get; set; }
+        public List<DataAccess.Models.Role> Roleslist { get; set; }
         public List<Note> Noteslist { get; set; }
         public List<DataAccess.Models.Ticket> Ticketslist { get; set; }
         public List<DataAccess.Models.Customer> Customerslist { get; set; }
@@ -41,7 +41,6 @@ namespace TicketsApp.Pages.TicketType
         protected override void OnInitialized()
         {
  
-                db = new ApplicationDbContext();
                 Userslist = UserDataService.GetAllUsers();
                 Roleslist = RoleDataService.GetAllRoles();
                 Noteslist = NoteDataService.GetAllNotes();

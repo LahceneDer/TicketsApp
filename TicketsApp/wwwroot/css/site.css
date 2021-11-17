@@ -30,6 +30,11 @@ a, .btn-link {
     color: red;
 }
 
+.sidebar  {
+    background-color: #ffffff;
+    color: #0366d6
+}
+
 #blazor-error-ui {
     background: lightyellow;
     bottom: 0;

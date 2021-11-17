@@ -22,6 +22,7 @@ namespace TicketsApp.Services
         }
 
 
+
         public TicketType AddTicketType(TicketType ticketType)
         {
             _appContext.TicketTypes.Add(ticketType);
@@ -59,6 +60,9 @@ namespace TicketsApp.Services
             {
                 switch (field)
                 {
+                    case "TicketTypeId":
+                        ticketType.TicketTypeId = (int)newValue[field];
+                        break;
                     case "TicketTypeName":
                         ticketType.TicketTypeName = (string)newValue[field];
                         break;

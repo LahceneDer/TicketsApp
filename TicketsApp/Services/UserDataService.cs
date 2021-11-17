@@ -59,6 +59,9 @@ namespace TicketsApp.Services
             {
                 switch (field)
                 {
+                    case "UserId":
+                        user.UserId = (int)newValue[field];
+                        break;
                     case "UserName":
                         user.UserName = (string)newValue[field];
                         break;

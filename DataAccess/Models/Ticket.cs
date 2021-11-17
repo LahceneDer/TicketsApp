@@ -20,6 +20,7 @@ namespace DataAccess.Models
         public DateTime Date { get; set; } = DateTime.Now;
         public virtual List<Note> Notes { get; set; }
         public virtual List<Attachment> Attachments { get; set; }
+
         public DateTime DateDeResoudre { get; set; } = DateTime.Now;
         public DateTime Duree { get; set; } = DateTime.Now;
         public string Description { get; set; }

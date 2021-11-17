@@ -6,20 +6,24 @@
 
 
 
-<h3 style="color: #2163ac" class="PageHeader"> Clients</h3>
+<h3 style="color: #2163ac" class="PageHeader"> Customers</h3>
 
 <div class="GridActions">
-    <DxButton RenderStyle="ButtonRenderStyle.Dark" @onclick="RefreshGrid" RenderStyleMode="ButtonRenderStyleMode.Outline" Text="Actualiser" SizeMode="@SizeMode.Small" IconCssClass="undo" style="margin: 0.5em;" />
+    <DxButton RenderStyle="ButtonRenderStyle.Dark" @onclick="RefreshGrid" RenderStyleMode="ButtonRenderStyleMode.Outline" Text="Refresh" SizeMode="@SizeMode.Small" IconCssClass="undo" style="margin: 0.5em;" />
 
 </div>
 
     <DxDataGrid Data="@Customerslist"
-                KeyFieldName="TicketId"
+                KeyFieldName="CustomerId"
                 DataNavigationMode="DataGridNavigationMode.VirtualScrolling"
-                PopupEditFormHeaderText="Ajouter/Editer tickets"
+                PopupEditFormHeaderText="Add/Edit Customer"
                 PopupEditFormCssClass="my-style"
                 PageSize="25"
                 ShowFilterRow="true"
+                ShowGroupPanel="true"
+                ShowPager="true"
+                PagerNavigationMode="PagerNavigationMode.InputBox"
+                PagerPageSizeSelectorVisible="true"
                 VerticalScrollableHeight="400"
                 VerticalScrollBarMode="ScrollBarMode.Auto"
                 RowRemoving="@((dataItem) => OnRowRemoving(dataItem))"
@@ -29,10 +33,10 @@
                 HorizontalScrollBarMode="ScrollBarMode.Visible"
                 EditMode="DataGridEditMode.PopupEditForm">
         <Columns>
-            <DxDataGridCommandColumn Width="150px"></DxDataGridCommandColumn>
-            <DxDataGridColumn Width="80px" Field="CustomertId" EditorVisible="false" Caption="Id" />
-            <DxDataGridColumn Width="80px" Field="CustomerName" Caption="Customer Name" />
-            <DxDataGridComboBoxColumn Width="180px" Field="@nameof(User.UserId)"
+            <DxDataGridCommandColumn Width="120px"></DxDataGridCommandColumn>
+            <DxDataGridColumn Width="80px" Field="CustomerId" Visible="true" EditorVisible="false" Caption="Id" />
+            <DxDataGridColumn Width="150px" Field="CustomerName" Caption="Customer Name" />
+            @*<DxDataGridComboBoxColumn Width="180px" Field="@nameof(User.UserId)"
                                       Caption="User"
                                       Data="@Userslist"
                                       TextFieldName="@nameof(User.UserName)"
@@ -50,54 +54,15 @@
                         <DxListEditorColumn FieldName="UserName" />
                     </DxComboBox>
                 </EditTemplate>
-            </DxDataGridComboBoxColumn>
+            </DxDataGridComboBoxColumn>*@
 
-            <DxDataGridColumn Width="80px" Field="Telephone" Caption="Telephone" />
-            <DxDataGridColumn Width="80px" Field="Courriel" Caption="Courriel" />
-            <DxDataGridColumn Width="80px" Field="Mobile" Caption="Mobile" />
-            <DxDataGridColumn Width="80px" Field="SiteWeb" Caption="SiteWeb" />
-            <DxDataGridColumn Width="80px" Field="PosteOccupe" Caption="Poste Occupe" />
-            <DxDataGridSpinEditColumn Field="ReferenceInterne" Caption="Reference Interne"/>
-
-            <DxDataGridColumn Width="80px" Field="TVA" Caption="TVA" />
-
-
-
-            @*<DxDataGridColumn Width="180px" Field="UserName" Caption="Login" />
-        <DxDataGridColumn Width="180px" Field="UserNom" Caption="Nom" />
-        <DxDataGridColumn Width="180px" Field="UserPrenom" Caption="Prénom" />
-        <DxDataGridColumn Width="180px" Field="UserTelFixe" Visible="false" EditorVisible="true" Caption="Tél fixe" />
-        <DxDataGridColumn Width="180px" Field="UserTelMob" Caption="Tél portable" />
-        <DxDataGridColumn Width="180px" Field="UserFax" Visible="false" EditorVisible="true" Caption="Fax" />
-        <DxDataGridColumn Width="180px" Field="UserEmail" Visible="false" EditorVisible="true" Caption="Email" />
-        <DxDataGridColumn Width="180px" Field="UserDescript" Visible="false" EditorVisible="true" Caption="Déscription" />
-        <DxDataGridColumn Width="180px" Field="UserMaxCapacity" Caption="Déconnexion(minutes)" />
-        <DxDataGridColumn Width="180px" Field="UserPassword" Visible="false" EditorVisible="true" Caption="Mot de passe">
-
-        </DxDataGridColumn>*@
-
-            @*<DxDataGridDateEditColumn Width="180px" Field="UserDateNaiss" Visible="false" EditorVisible="true" Caption="Date de naissance" />*@
-            @*<DxDataGridComboBoxColumn Width="180px" Field="@nameof(Role.RoleId)"
-                                  Caption="Role"
-                                  Data="@Roleslist"
-                                  TextFieldName="@nameof(Role.RoleName)"
-                                  ValueFieldName="@nameof(Role.RoleId)">
-            <EditTemplate>
-                <DxComboBox Data="@Roleslist"
-                            ListRenderMode="ListRenderMode.Virtual"
-                            FilteringMode="DataGridFilteringMode.Contains"
-                            ClearButtonDisplayMode="@DataEditorClearButtonDisplayMode.Auto"
-                            TextFieldName="@nameof(Role.RoleName)"
-                            ValueFieldName="@nameof(Role.RoleId)"
-                            SelectedItemChanged="@(newCellValue => ((CellEditContext)context).OnChanged(newCellValue.RoleId))"
-                            Value="@(((CellEditContext)context).CellValue)">
-                    <DxListEditorColumn FieldName="RoleId" />
-                    <DxListEditorColumn FieldName="RoleName" />
-                </DxComboBox>
-            </EditTemplate>
-        </DxDataGridComboBoxColumn>*@
-
-
+            <DxDataGridColumn Width="120px" Field="Telephone" Caption="Telephone" />
+            <DxDataGridColumn Width="120px" Field="Courriel" Caption="Courriel" />
+            <DxDataGridColumn Width="120px" Field="Mobile" Caption="Mobile" />
+            <DxDataGridColumn Width="120px" Field="SiteWeb" Caption="SiteWeb" />
+            <DxDataGridColumn Width="120px" Field="PosteOccupe" Caption="Poste Occupe" />
+            <DxDataGridSpinEditColumn Width="120px" Field="ReferenceInterne" Caption="Reference Interne" />
+            <DxDataGridColumn Width="120px" Field="TVA" Caption="TVA" />
         </Columns>
     </DxDataGrid>
 

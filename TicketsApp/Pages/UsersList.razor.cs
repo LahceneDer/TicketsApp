@@ -22,9 +22,11 @@ namespace TicketsApp.Pages
         public ApplicationDbContext db { get; set; }
 
         public List<User> Userslist { get; set; }
-        public List<Role> Roleslist { get; set; }
+        public List<DataAccess.Models.Role> Roleslist { get; set; }
         public int userId { get; set; } = 0;
         private bool PopupVisible { get; set; }
+
+        public User user { get; set; }
 
         public string newPassword { get; set; }
         public string confirmedPassword { get; set; }
@@ -32,7 +34,6 @@ namespace TicketsApp.Pages
         {
             if (CheckPermissionService.CheckAutorisation(Action.Utilisateurs, Resource.Parametrage))
             {
-                db = new ApplicationDbContext();
                 Userslist = UserDataService.GetAllUsers();
                 Roleslist = RoleDataService.GetAllRoles();  
                 //base.OnInitialized();
@@ -50,13 +51,13 @@ namespace TicketsApp.Pages
         void OnRowUpdating(User x, Dictionary<string, object> newValue)
         {
             UserDataService.UpdateUser(x, newValue);
-            InvokeAsync(StateHasChanged);
+            StateHasChanged();
         }
         void OnRowRemoving(User x)
         {
             UserDataService.DeleteUser(x.UserId);
             OnInitialized();
-            InvokeAsync(StateHasChanged);
+            StateHasChanged();
         }
         void OnRowInserting(Dictionary<string, object> newValue)
         {
@@ -64,7 +65,7 @@ namespace TicketsApp.Pages
             x.UserPassword = Hlp.GetSha1((string)newValue["UserName"], "QSDFGHJKLM@&987654321", "pass");
             UserDataService.AddUser(UserDataService.UpdateUser(x, newValue));
             OnInitialized();
-            InvokeAsync(StateHasChanged);
+            StateHasChanged();
         }
         public void ClosePopup()
         {

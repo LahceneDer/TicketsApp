@@ -6,7 +6,7 @@
 
 
 
-<h3 style="color: #2163ac" class="PageHeader"> Utilisateurs</h3>
+<h3 style="color: #2163ac" class="PageHeader"> Users</h3>
 
 <div class="GridActions">
     <DxButton RenderStyle="ButtonRenderStyle.Dark" @onclick="RefreshGrid" RenderStyleMode="ButtonRenderStyleMode.Outline" Text="Actualiser" SizeMode="@SizeMode.Small" IconCssClass="undo" style="margin: 0.5em;" />
@@ -16,10 +16,15 @@
 <DxDataGrid Data="@Userslist"
             KeyFieldName="UserId"
             DataNavigationMode="DataGridNavigationMode.VirtualScrolling"
-            PopupEditFormHeaderText="Ajouter/Editer Utilisateur"
+            PopupEditFormHeaderText="Add/Edit User"
             PopupEditFormCssClass="my-style"
             PageSize="25"
             ShowFilterRow="true"
+            ShowGroupPanel="true"
+            ShowPager="true"
+            PagerNavigationMode="PagerNavigationMode.InputBox"
+            PagerPageSizeSelectorVisible="true"
+            PagerAllDataRowsItemVisible="true"
             VerticalScrollableHeight="400"
             VerticalScrollBarMode="ScrollBarMode.Auto"
             RowRemoving="@((dataItem) => OnRowRemoving(dataItem))"
@@ -29,7 +34,7 @@
             HorizontalScrollBarMode="ScrollBarMode.Visible"
             EditMode="DataGridEditMode.PopupEditForm">
     <Columns>
-        <DxDataGridCommandColumn Width="150px"></DxDataGridCommandColumn>
+        <DxDataGridCommandColumn Width="100px"></DxDataGridCommandColumn>
         <DxDataGridColumn Width="80px" Field="UserId" EditorVisible="false" Caption="Id" />
         <DxDataGridColumn Width="180px" Field="UserName" Caption="Login" />
         <DxDataGridColumn Width="180px" Field="UserNom" Caption="Nom" />
@@ -42,12 +47,13 @@
         <DxDataGridColumn Width="180px" Field="UserMaxCapacity" Caption="Déconnexion(minutes)" />
         <DxDataGridColumn Width="180px" Field="UserPassword" Visible="false" EditorVisible="true" Caption="Mot de passe">
 
-            </DxDataGridColumn>
+        </DxDataGridColumn>
 
         <DxDataGridDateEditColumn Width="180px" Field="UserDateNaiss" Visible="false" EditorVisible="true" Caption="Date de naissance" />
         <DxDataGridComboBoxColumn Width="180px" Field="@nameof(Role.RoleId)"
                                   Caption="Role"
                                   Data="@Roleslist"
+                                  AllowGroup="true"
                                   TextFieldName="@nameof(Role.RoleName)"
                                   ValueFieldName="@nameof(Role.RoleId)">
             <EditTemplate>
@@ -64,8 +70,6 @@
                 </DxComboBox>
             </EditTemplate>
         </DxDataGridComboBoxColumn>
-
-
     </Columns>
 </DxDataGrid>
 <DxPopup HeaderText="Changer mot de passe" Visible="@PopupVisible" CssClass="RolePopup">
