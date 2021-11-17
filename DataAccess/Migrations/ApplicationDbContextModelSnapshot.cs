@@ -21,16 +21,16 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("DataAccess.Models.Attachment", b =>
                 {
-                    b.Property<long>("AttachmentId")
+                    b.Property<int>("AttachmentId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("AttachmentPath")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long?>("TicketId")
-                        .HasColumnType("bigint");
+                    b.Property<int?>("TicketId")
+                        .HasColumnType("int");
 
                     b.HasKey("AttachmentId");
 
@@ -39,30 +39,12 @@ namespace DataAccess.Migrations
                     b.ToTable("Attachment");
                 });
 
-            modelBuilder.Entity("DataAccess.Models.Civilite", b =>
-                {
-                    b.Property<long>("CiviliteId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("CiviliteName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("CiviliteId");
-
-                    b.ToTable("Civilite");
-                });
-
             modelBuilder.Entity("DataAccess.Models.Customer", b =>
                 {
-                    b.Property<long>("CustomerId")
+                    b.Property<int>("CustomerId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<long>("CiviliteId")
-                        .HasColumnType("bigint");
 
                     b.Property<string>("Courriel")
                         .HasColumnType("nvarchar(max)");
@@ -93,26 +75,93 @@ namespace DataAccess.Migrations
 
                     b.HasKey("CustomerId");
 
-                    b.HasIndex("CiviliteId");
-
                     b.ToTable("Customer");
+                });
+
+            modelBuilder.Entity("DataAccess.Models.Module", b =>
+                {
+                    b.Property<int>("ModuleID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ModuleGroup")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ModuleNom")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ModuleID");
+
+                    b.ToTable("Module");
+                });
+
+            modelBuilder.Entity("DataAccess.Models.ModuleAction", b =>
+                {
+                    b.Property<int>("ModuleActionID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Action")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ModuleActionNom")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ModuleID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Resource")
+                        .HasColumnType("int");
+
+                    b.HasKey("ModuleActionID");
+
+                    b.HasIndex("ModuleID");
+
+                    b.ToTable("ModuleAction");
+                });
+
+            modelBuilder.Entity("DataAccess.Models.ModuleActionRole", b =>
+                {
+                    b.Property<int>("ModuleActionRoleId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ModuleActionId")
+                        .HasColumnType("int")
+                        .HasColumnName("ModuleAction_ModuleActionID");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int")
+                        .HasColumnName("Role_RoleID");
+
+                    b.HasKey("ModuleActionRoleId");
+
+                    b.HasIndex("ModuleActionId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("ModuleActionRole");
                 });
 
             modelBuilder.Entity("DataAccess.Models.Note", b =>
                 {
-                    b.Property<long>("NoteId")
+                    b.Property<int>("NoteId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("TicketId")
-                        .HasColumnType("bigint");
+                    b.Property<int>("TicketId")
+                        .HasColumnType("int");
 
-                    b.Property<long>("UserId")
-                        .HasColumnType("bigint");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("NoteId");
 
@@ -125,13 +174,13 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("DataAccess.Models.Permission", b =>
                 {
-                    b.Property<long>("PermissionId")
+                    b.Property<int>("PermissionId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long>("RoleId")
-                        .HasColumnType("bigint");
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
 
                     b.HasKey("PermissionId");
 
@@ -142,10 +191,13 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("DataAccess.Models.Role", b =>
                 {
-                    b.Property<long>("RoleId")
+                    b.Property<int>("RoleId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("RoleName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("RoleId");
 
@@ -154,13 +206,13 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("DataAccess.Models.Ticket", b =>
                 {
-                    b.Property<long>("TicketId")
+                    b.Property<int>("TicketId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long>("CustomerId")
-                        .HasColumnType("bigint");
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
@@ -180,17 +232,20 @@ namespace DataAccess.Migrations
                     b.Property<int>("State")
                         .HasColumnType("int");
 
-                    b.Property<long>("TicketTypeId")
+                    b.Property<int>("TicketTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<long?>("TicketTypeId1")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("UserId")
-                        .HasColumnType("bigint");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("TicketId");
 
                     b.HasIndex("CustomerId");
 
-                    b.HasIndex("TicketTypeId");
+                    b.HasIndex("TicketTypeId1");
 
                     b.HasIndex("UserId");
 
@@ -214,19 +269,68 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("DataAccess.Models.User", b =>
                 {
-                    b.Property<long>("UserId")
+                    b.Property<int>("UserId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Email")
+                    b.Property<int?>("CommuneId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("RoleID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ServiceID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SpecialiteID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserAdresse")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("FirstName")
+                    b.Property<DateTime?>("UserDateNaiss")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserDescript")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("LastName")
+                    b.Property<string>("UserEmail")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserFax")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserMaxCapacity")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserNom")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserPassword")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserPrenom")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserSpec")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserTelFixe")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserTelMob")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("WilayaId")
+                        .HasColumnType("int");
 
                     b.HasKey("UserId");
 
@@ -240,15 +344,32 @@ namespace DataAccess.Migrations
                         .HasForeignKey("TicketId");
                 });
 
-            modelBuilder.Entity("DataAccess.Models.Customer", b =>
+            modelBuilder.Entity("DataAccess.Models.ModuleAction", b =>
                 {
-                    b.HasOne("DataAccess.Models.Civilite", "Civilite")
-                        .WithMany("Customers")
-                        .HasForeignKey("CiviliteId")
+                    b.HasOne("DataAccess.Models.Module", "Module")
+                        .WithMany("ModuleActions")
+                        .HasForeignKey("ModuleID");
+
+                    b.Navigation("Module");
+                });
+
+            modelBuilder.Entity("DataAccess.Models.ModuleActionRole", b =>
+                {
+                    b.HasOne("DataAccess.Models.ModuleAction", "ModuleAction")
+                        .WithMany()
+                        .HasForeignKey("ModuleActionId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("Civilite");
+                    b.HasOne("DataAccess.Models.Role", "Role")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("ModuleAction");
+
+                    b.Navigation("Role");
                 });
 
             modelBuilder.Entity("DataAccess.Models.Note", b =>
@@ -291,9 +412,7 @@ namespace DataAccess.Migrations
 
                     b.HasOne("DataAccess.Models.TicketType", "TicketType")
                         .WithMany("Tickets")
-                        .HasForeignKey("TicketTypeId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("TicketTypeId1");
 
                     b.HasOne("DataAccess.Models.User", "User")
                         .WithMany("Tickets")
@@ -308,14 +427,14 @@ namespace DataAccess.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("DataAccess.Models.Civilite", b =>
-                {
-                    b.Navigation("Customers");
-                });
-
             modelBuilder.Entity("DataAccess.Models.Customer", b =>
                 {
                     b.Navigation("Tickets");
+                });
+
+            modelBuilder.Entity("DataAccess.Models.Module", b =>
+                {
+                    b.Navigation("ModuleActions");
                 });
 
             modelBuilder.Entity("DataAccess.Models.Role", b =>

@@ -6,12 +6,13 @@ using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using BM.Common.Help;
 using DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace TicketsApp.Services
 {
-    public class UserDataService : IUserDataService
+    public class UserDataService 
     {
         private readonly ApplicationDbContext _appContext;
 
@@ -20,34 +21,111 @@ namespace TicketsApp.Services
             _appContext = appContext;
         }
 
-        public async Task<User> AddUser(User user)
+
+        public User AddUser(User user)
         {
-            await _appContext.Users.AddAsync(user);
-            await _appContext.SaveChangesAsync();
+            _appContext.Users.Add(user);
+            _appContext.SaveChanges();
             return user;
         }
 
-        public async Task DeleteUser(User user)
+        public void DeleteUser(int userId)
         {
-            _appContext.Remove(user);
-            await _appContext.SaveChangesAsync();
+            var c = _appContext.Users.Find(userId);
+            _appContext.Users.Remove(c);
+            _appContext.SaveChanges();
         }
 
-        public  async Task<List<User>> GetAllUsers()
+
+        public   List<User> GetAllUsers()
         {
-            return await _appContext.Users.ToListAsync();
+            var users = _appContext.Users.ToList();
+            return users;
         }
 
-        public async Task<User> GetUserDetails(long userId)
+        public  User GetUserDetails(long userId)
         {
-            User user = await _appContext.Users.FirstOrDefaultAsync(c => c.UserId.Equals(userId));
+            return _appContext.Users.Find(userId);
+        }
+
+
+
+
+
+
+        public User UpdateUser(User user, Dictionary<string, object> newValue)
+        {
+            foreach (var field in newValue.Keys)
+            {
+                switch (field)
+                {
+                    case "UserName":
+                        user.UserName = (string)newValue[field];
+                        break;
+                    case "UserAdresse":
+                        user.UserAdresse = (string)newValue[field];
+                        break;
+                    case "UserPrenom":
+                        user.UserPrenom = (string)newValue[field];
+                        break;
+                    case "UserNom":
+                        user.UserNom = (string)newValue[field];
+                        break;
+                    case "UserTelFixe":
+                        user.UserTelFixe = (string)newValue[field];
+                        break;
+                    case "UserTelMob":
+                        user.UserTelMob = (string)newValue[field];
+                        break;
+                    case "UserFax":
+                        user.UserFax = (string)newValue[field];
+                        break;
+                    case "UserEmail":
+                        user.UserEmail = (string)newValue[field];
+                        break;
+                    case "UserMaxCapacity":
+                        user.UserMaxCapacity = Convert.ToInt32(newValue[field]);
+                        break;
+                    //case "UserPassword":
+                    //    var u = (string) newValue["UserName"];
+                    //    user.UserPassword = Hlp.GetSha1(u, "QSDFGHJKLM@&987654321", (string)newValue[field]);
+                    //    break;
+                    case "UserDescript":
+                        user.UserDescript = (string)newValue[field];
+                        break;
+                    case "RoleID":
+                        user.RoleID = (int?)newValue[field];
+                        break;
+                    case "WilayaId":
+                        user.WilayaId = (int)newValue[field];
+                        break;
+                    case "CommuneId":
+                        user.CommuneId = (int)newValue[field];
+                        break;
+
+                    case "ServiceID":
+                        user.ServiceID = (int)newValue[field];
+                        break;
+
+                    case "SpecialiteID":
+                        user.SpecialiteID = (int)newValue[field];
+                        break;
+
+                    case "UserDateNaiss":
+                        user.UserDateNaiss = (DateTime)newValue[field];
+                        break;
+                }
+            }
+            _appContext.SaveChanges();
             return user;
         }
-
-        public async Task UpdateUser(User user)
+        public void SaveNewPassword(int uId, string password)
         {
-            _appContext.Users.Update(user);
-            await _appContext.SaveChangesAsync();
+            var user = _appContext.Users.Find(uId);
+            user.UserPassword = Hlp.GetSha1(user.UserName, "QSDFGHJKLM@&987654321", password);
+            user.PasswordChanged = true;
+            _appContext.SaveChanges();
         }
+
     }
 }

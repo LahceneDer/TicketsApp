@@ -82,6 +82,13 @@ using TicketsApp.Shared;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 11 "C:\Users\lahcene\source\repos\TicketsApp\TicketsApp\_Imports.razor"
+using DevExpress.Blazor;
+
+#line default
+#line hidden
+#nullable disable
     public partial class NavMenu : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
@@ -90,7 +97,7 @@ using TicketsApp.Shared;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 29 "C:\Users\lahcene\source\repos\TicketsApp\TicketsApp\Shared\NavMenu.razor"
+#line 33 "C:\Users\lahcene\source\repos\TicketsApp\TicketsApp\Shared\NavMenu.razor"
        
     private bool collapseNavMenu = true;
 

@@ -1,0 +1,143 @@
+﻿@page "/Customers"
+@using DataAccess.Models
+@using TicketsApp.Services
+@inject IJSRuntime JSRuntime
+@namespace TicketsApp.Pages.Customer
+
+
+
+<h3 style="color: #2163ac" class="PageHeader"> Clients</h3>
+
+<div class="GridActions">
+    <DxButton RenderStyle="ButtonRenderStyle.Dark" @onclick="RefreshGrid" RenderStyleMode="ButtonRenderStyleMode.Outline" Text="Actualiser" SizeMode="@SizeMode.Small" IconCssClass="undo" style="margin: 0.5em;" />
+
+</div>
+
+    <DxDataGrid Data="@Customerslist"
+                KeyFieldName="TicketId"
+                DataNavigationMode="DataGridNavigationMode.VirtualScrolling"
+                PopupEditFormHeaderText="Ajouter/Editer tickets"
+                PopupEditFormCssClass="my-style"
+                PageSize="25"
+                ShowFilterRow="true"
+                VerticalScrollableHeight="400"
+                VerticalScrollBarMode="ScrollBarMode.Auto"
+                RowRemoving="@((dataItem) => OnRowRemoving(dataItem))"
+                RowInserting="@((newValues) => OnRowInserting(newValues))"
+                RowUpdating="@((updatingDataItem, newValues) => OnRowUpdating(updatingDataItem, newValues))"
+                CssClass="mw-1100"
+                HorizontalScrollBarMode="ScrollBarMode.Visible"
+                EditMode="DataGridEditMode.PopupEditForm">
+        <Columns>
+            <DxDataGridCommandColumn Width="150px"></DxDataGridCommandColumn>
+            <DxDataGridColumn Width="80px" Field="CustomertId" EditorVisible="false" Caption="Id" />
+            <DxDataGridColumn Width="80px" Field="CustomerName" Caption="Customer Name" />
+            <DxDataGridComboBoxColumn Width="180px" Field="@nameof(User.UserId)"
+                                      Caption="User"
+                                      Data="@Userslist"
+                                      TextFieldName="@nameof(User.UserName)"
+                                      ValueFieldName="@nameof(User.UserId)">
+                <EditTemplate>
+                    <DxComboBox Data="@Userslist"
+                                ListRenderMode="ListRenderMode.Virtual"
+                                FilteringMode="DataGridFilteringMode.Contains"
+                                ClearButtonDisplayMode="@DataEditorClearButtonDisplayMode.Auto"
+                                TextFieldName="@nameof(User.UserName)"
+                                ValueFieldName="@nameof(User.UserId)"
+                                SelectedItemChanged="@(newCellValue => ((CellEditContext)context).OnChanged(newCellValue.UserId))"
+                                Value="@(((CellEditContext)context).CellValue)">
+                        <DxListEditorColumn FieldName="UserId" />
+                        <DxListEditorColumn FieldName="UserName" />
+                    </DxComboBox>
+                </EditTemplate>
+            </DxDataGridComboBoxColumn>
+            <DxDataGridColumn Width="80px" Field="Telephone" Caption="Telephone" />
+            <DxDataGridColumn Width="80px" Field="Courriel"  Caption="Courriel" />
+            <DxDataGridColumn Width="80px" Field="Mobile"  Caption="Mobile" />
+            <DxDataGridColumn Width="80px" Field="SiteWeb"  Caption="SiteWeb" />
+            <DxDataGridColumn Width="80px" Field="PosteOccupe" EditorVisible="false" Caption="Poste Occupe" />
+            <DxDataGridColumn Width="80px" Field="TVA"  Caption="TVA" />
+
+
+
+            @*<DxDataGridColumn Width="180px" Field="UserName" Caption="Login" />
+        <DxDataGridColumn Width="180px" Field="UserNom" Caption="Nom" />
+        <DxDataGridColumn Width="180px" Field="UserPrenom" Caption="Prénom" />
+        <DxDataGridColumn Width="180px" Field="UserTelFixe" Visible="false" EditorVisible="true" Caption="Tél fixe" />
+        <DxDataGridColumn Width="180px" Field="UserTelMob" Caption="Tél portable" />
+        <DxDataGridColumn Width="180px" Field="UserFax" Visible="false" EditorVisible="true" Caption="Fax" />
+        <DxDataGridColumn Width="180px" Field="UserEmail" Visible="false" EditorVisible="true" Caption="Email" />
+        <DxDataGridColumn Width="180px" Field="UserDescript" Visible="false" EditorVisible="true" Caption="Déscription" />
+        <DxDataGridColumn Width="180px" Field="UserMaxCapacity" Caption="Déconnexion(minutes)" />
+        <DxDataGridColumn Width="180px" Field="UserPassword" Visible="false" EditorVisible="true" Caption="Mot de passe">
+
+        </DxDataGridColumn>*@
+
+            @*<DxDataGridDateEditColumn Width="180px" Field="UserDateNaiss" Visible="false" EditorVisible="true" Caption="Date de naissance" />*@
+            @*<DxDataGridComboBoxColumn Width="180px" Field="@nameof(Role.RoleId)"
+                                  Caption="Role"
+                                  Data="@Roleslist"
+                                  TextFieldName="@nameof(Role.RoleName)"
+                                  ValueFieldName="@nameof(Role.RoleId)">
+            <EditTemplate>
+                <DxComboBox Data="@Roleslist"
+                            ListRenderMode="ListRenderMode.Virtual"
+                            FilteringMode="DataGridFilteringMode.Contains"
+                            ClearButtonDisplayMode="@DataEditorClearButtonDisplayMode.Auto"
+                            TextFieldName="@nameof(Role.RoleName)"
+                            ValueFieldName="@nameof(Role.RoleId)"
+                            SelectedItemChanged="@(newCellValue => ((CellEditContext)context).OnChanged(newCellValue.RoleId))"
+                            Value="@(((CellEditContext)context).CellValue)">
+                    <DxListEditorColumn FieldName="RoleId" />
+                    <DxListEditorColumn FieldName="RoleName" />
+                </DxComboBox>
+            </EditTemplate>
+        </DxDataGridComboBoxColumn>*@
+
+
+        </Columns>
+    </DxDataGrid>
+
+
+    <style>
+        .closePassPop {
+            position: absolute;
+            bottom: -50px;
+            height: 32px;
+            font-size: 14px;
+            line-height: 13px;
+            right: 90px;
+        }
+
+        .passInput {
+            padding: 0;
+        }
+
+        .RolePopup {
+            max-width: 50% !important;
+        }
+
+        a.close-button {
+            float: right;
+            right: 10px;
+        }
+
+        .custom-header {
+            height: 45px;
+            padding: 10px;
+        }
+
+        .RolePopup .row {
+            height: 50px;
+        }
+
+        .editPassBtn {
+            font-size: 14px;
+            height: 30px;
+        }
+
+        .my-style {
+            min-width: 80%;
+            vertical-align: middle;
+        }
+    </style>

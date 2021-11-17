@@ -1,47 +1,144 @@
 ﻿@page "/Users"
 @using DataAccess.Models
 @using TicketsApp.Services
+@inject IJSRuntime JSRuntime
+@namespace TicketsApp.Pages
 
-<NavLink class="nav-link" href="AddUser">
-    <span class=" btn btn-primary" aria-hidden="true">Add New</span>
 
-</NavLink>
 
-<h1>All Users</h1>
-@if (EmpObj is null)
-{
-    <p><em>Loading... !</em></p>
-}
-else
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>User Id</th>
-                <th>User First Name</th>
-                <th>User Last Name</th>
-                <th>User Email</th>
-            </tr>
-        </thead>
-        <tbody>
-        @foreach(var user in EmpObj)
-        {
-            <tr>
-                <td>@user.UserId</td>
-                <td>@user.FirstName</td>
-                <td>@user.LastName</td>
-                <td>@user.Email</td>
-                <td></td>
-                <td>
-                    <a class="nav-link" href="EditUser/@user.UserId">
-                        <span class="oi oi-pencil" aria-hidden="true">Edit</span>
-                    </a>
-                    <a class="nav-link" href="UserDelete/@user.UserId">
-                        <span class="oi oi-trash" aria-hidden="true">Delete</span>
-                    </a>
-                </td>
-            </tr>
-        }
-        </tbody>
-    </table>
-}
+<h3 style="color: #2163ac" class="PageHeader"> Utilisateurs</h3>
+
+<div class="GridActions">
+    <DxButton RenderStyle="ButtonRenderStyle.Dark" @onclick="RefreshGrid" RenderStyleMode="ButtonRenderStyleMode.Outline" Text="Actualiser" SizeMode="@SizeMode.Small" IconCssClass="undo" style="margin: 0.5em;" />
+
+</div>
+
+<DxDataGrid Data="@Userslist"
+            KeyFieldName="UserId"
+            DataNavigationMode="DataGridNavigationMode.VirtualScrolling"
+            PopupEditFormHeaderText="Ajouter/Editer Utilisateur"
+            PopupEditFormCssClass="my-style"
+            PageSize="25"
+            ShowFilterRow="true"
+            VerticalScrollableHeight="400"
+            VerticalScrollBarMode="ScrollBarMode.Auto"
+            RowRemoving="@((dataItem) => OnRowRemoving(dataItem))"
+            RowInserting="@((newValues) => OnRowInserting(newValues))"
+            RowUpdating="@((updatingDataItem, newValues) => OnRowUpdating(updatingDataItem, newValues))"
+            CssClass="mw-1100"
+            HorizontalScrollBarMode="ScrollBarMode.Visible"
+            EditMode="DataGridEditMode.PopupEditForm">
+    <Columns>
+        <DxDataGridCommandColumn Width="150px"></DxDataGridCommandColumn>
+        <DxDataGridColumn Width="80px" Field="UserId" EditorVisible="false" Caption="Id" />
+        <DxDataGridColumn Width="180px" Field="UserName" Caption="Login" />
+        <DxDataGridColumn Width="180px" Field="UserNom" Caption="Nom" />
+        <DxDataGridColumn Width="180px" Field="UserPrenom" Caption="Prénom" />
+        <DxDataGridColumn Width="180px" Field="UserTelFixe" Visible="false" EditorVisible="true" Caption="Tél fixe" />
+        <DxDataGridColumn Width="180px" Field="UserTelMob" Caption="Tél portable" />
+        <DxDataGridColumn Width="180px" Field="UserFax" Visible="false" EditorVisible="true" Caption="Fax" />
+        <DxDataGridColumn Width="180px" Field="UserEmail" Visible="false" EditorVisible="true" Caption="Email" />
+        <DxDataGridColumn Width="180px" Field="UserDescript" Visible="false" EditorVisible="true" Caption="Déscription" />
+        <DxDataGridColumn Width="180px" Field="UserMaxCapacity" Caption="Déconnexion(minutes)" />
+        <DxDataGridColumn Width="180px" Field="UserPassword" Visible="false" EditorVisible="true" Caption="Mot de passe">
+
+            </DxDataGridColumn>
+
+        <DxDataGridDateEditColumn Width="180px" Field="UserDateNaiss" Visible="false" EditorVisible="true" Caption="Date de naissance" />
+        <DxDataGridComboBoxColumn Width="180px" Field="@nameof(Role.RoleId)"
+                                  Caption="Role"
+                                  Data="@Roleslist"
+                                  TextFieldName="@nameof(Role.RoleName)"
+                                  ValueFieldName="@nameof(Role.RoleId)">
+            <EditTemplate>
+                <DxComboBox Data="@Roleslist"
+                            ListRenderMode="ListRenderMode.Virtual"
+                            FilteringMode="DataGridFilteringMode.Contains"
+                            ClearButtonDisplayMode="@DataEditorClearButtonDisplayMode.Auto"
+                            TextFieldName="@nameof(Role.RoleName)"
+                            ValueFieldName="@nameof(Role.RoleId)"
+                            SelectedItemChanged="@(newCellValue => ((CellEditContext)context).OnChanged(newCellValue.RoleId))"
+                            Value="@(((CellEditContext)context).CellValue)">
+                    <DxListEditorColumn FieldName="RoleId" />
+                    <DxListEditorColumn FieldName="RoleName" />
+                </DxComboBox>
+            </EditTemplate>
+        </DxDataGridComboBoxColumn>
+
+
+    </Columns>
+</DxDataGrid>
+<DxPopup HeaderText="Changer mot de passe" Visible="@PopupVisible" CssClass="RolePopup">
+    <HeaderTemplate>
+        <div class="custom-header bg-primary text-white w-100">
+            <span class="demo-icon-info">Changer le mot de passe</span>
+            <a class="close-button oi oi-x text-white" href="javascript:;" aria-hidden="true"
+               role="button" aria-label="Close popup" @onclick="@ClosePopup"></a>
+        </div>
+    </HeaderTemplate>
+    <Content>
+        <div class="row">
+            <div class="col-md-5">Nouveau mot de passe :</div>
+            <div class="col-md-6 passInput">
+                <DxTextBox @bind-Text="@newPassword" Password="true">
+                </DxTextBox>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-5">Confirmer le nouveau mot de passe :</div>
+            <div class="col-md-6 passInput">
+                <DxTextBox @bind-Text="@confirmedPassword" Password="true">
+                </DxTextBox>
+            </div>
+        </div>
+        <input type="button" class="btn btn-success closePassPop" value="Enregistrer" @onclick="@(() => { SaveNewPassword(); })" />
+    </Content>
+    <FooterTemplate>
+        <DxButton RenderStyle="ButtonRenderStyle.Primary" @onclick="@ClosePopup" Text="Fermer" />
+    </FooterTemplate>
+</DxPopup>
+
+
+<style>
+    .closePassPop {
+        position: absolute;
+        bottom: -50px;
+        height: 32px;
+        font-size: 14px;
+        line-height: 13px;
+        right: 90px;
+    }
+
+    .passInput {
+        padding: 0;
+    }
+
+    .RolePopup {
+        max-width: 50% !important;
+    }
+
+    a.close-button {
+        float: right;
+        right: 10px;
+    }
+
+    .custom-header {
+        height: 45px;
+        padding: 10px;
+    }
+
+    .RolePopup .row {
+        height: 50px;
+    }
+
+    .editPassBtn {
+        font-size: 14px;
+        height: 30px;
+    }
+
+    .my-style {
+        min-width: 80%;
+        vertical-align: middle;
+    }
+</style>

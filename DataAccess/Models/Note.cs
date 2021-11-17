@@ -8,9 +8,9 @@ namespace DataAccess.Models
 {
     public class Note
     {
-        public long NoteId { get; set; }
-        public long UserId { get; set; }
-        public long TicketId { get; set; }
+        public int NoteId { get; set; }
+        public int UserId { get; set; }
+        public int TicketId { get; set; }
         public virtual User User { get; set; }
         public virtual Ticket Ticket { get; set; }
         public string Description { get; set; }

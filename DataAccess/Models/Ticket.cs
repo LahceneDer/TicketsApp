@@ -8,10 +8,10 @@ namespace DataAccess.Models
 {
     public class Ticket
     {
-        public long TicketId { get; set; }
-        public long UserId { get; set; }
-        public long TicketTypeId { get; set; }
-        public long CustomerId { get; set; }
+        public int TicketId { get; set; }
+        public int UserId { get; set; }
+        public int TicketTypeId { get; set; }
+        public int CustomerId { get; set; }
         public virtual User User { get; set; }
         public virtual TicketType TicketType { get; set; }
         public virtual Customer Customer { get; set; }

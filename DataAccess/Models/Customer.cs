@@ -8,7 +8,7 @@ namespace DataAccess.Models
 {
     public class Customer
     {
-        public long CustomerId { get; set; }
+        public int CustomerId { get; set; }
         public string CustomerName { get; set; }
         public int ReferenceInterne { get; set; }
         public string Telephone { get; set; }
@@ -17,8 +17,6 @@ namespace DataAccess.Models
         public string Mobile { get; set; }
         public string PosteOccupe { get; set; }
         public string TVA { get; set; }
-        public long CiviliteId { get; set; }
-        public Civilite Civilite { get; set; }  
         public virtual List<Ticket> Tickets { get; set; }
         public CustomerType CustomerType { get; set; }
 

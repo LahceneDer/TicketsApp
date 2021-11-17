@@ -27,9 +27,7 @@
         "sources": {
           "C:\\Program Files (x86)\\DevExpress 21.1\\Components\\System\\Components\\Packages": {},
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "http://packagesource": {},
-          "https://api.nuget.org/v3/index.json": {},
-          "https://nuget.devexpress.com/hjpQaeCI295VBKNYlcg2wgCgANEmuUHOn1weSZ1LZo1CgNFclg/api": {}
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net5.0": {

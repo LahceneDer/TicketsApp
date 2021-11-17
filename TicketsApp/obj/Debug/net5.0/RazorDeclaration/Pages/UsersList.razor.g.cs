@@ -83,6 +83,13 @@ using TicketsApp.Shared;
 #line hidden
 #nullable disable
 #nullable restore
+#line 11 "C:\Users\lahcene\source\repos\TicketsApp\TicketsApp\_Imports.razor"
+using DevExpress.Blazor;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
 #line 2 "C:\Users\lahcene\source\repos\TicketsApp\TicketsApp\Pages\UsersList.razor"
 using DataAccess.Models;
 
@@ -104,6 +111,7 @@ using TicketsApp.Services;
         {
         }
         #pragma warning restore 1998
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IJSRuntime JSRuntime { get; set; }
     }
 }
 #pragma warning restore 1591

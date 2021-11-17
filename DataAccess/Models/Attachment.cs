@@ -8,7 +8,7 @@ namespace DataAccess.Models
 {
     public class Attachment
     {
-        public long AttachmentId { get; set; }
+        public int AttachmentId { get; set; }
         public string AttachmentPath { get; set; }
     }
 }

@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace TicketsApp.Services
 {
-    public class TicketDataService : ITicketDataService
+    public class TicketDataService
     {
         private readonly ApplicationDbContext _appContext;
 
@@ -19,34 +19,71 @@ namespace TicketsApp.Services
         {
             _appContext = appContext;
         }
-        public async Task<List<Ticket>> GetAllTickets()
-        {
-            return await _appContext.Tickets.ToListAsync();
-        }
 
-        public async Task<Ticket> GetTicketDetails(long ticketId)
+
+        public Ticket AddTicket(Ticket ticket)
         {
-            Ticket ticket = await _appContext.Tickets.FirstOrDefaultAsync(c => c.TicketId.Equals(ticketId));
+            _appContext.Tickets.Add(ticket);
+            _appContext.SaveChanges();
             return ticket;
         }
 
-        public async Task<Ticket> AddTicket(Ticket ticket)
+        public void DeleteTicket(int ticketId)
         {
-            await _appContext.Tickets.AddAsync(ticket);
-            await _appContext.SaveChangesAsync();
+            var c = _appContext.Tickets.Find(ticketId);
+            _appContext.Tickets.Remove(c);
+            _appContext.SaveChanges();
+        }
+
+
+        public List<Ticket> GetAllTickets()
+        {
+            var tickets = _appContext.Tickets.ToList();
+            return tickets;
+        }
+
+        public Ticket GetTicketDetails(long ticketId)
+        {
+            return _appContext.Tickets.Find(ticketId);
+        }
+
+
+        public Ticket UpdateTicket(Ticket ticket, Dictionary<string, object> newValue)
+        {
+            foreach (var field in newValue.Keys)
+            {
+                switch (field)
+                {
+                    case "UserId":
+                        ticket.UserId = (int)newValue[field];
+                        break;
+                    case "TicketTypeId":
+                        ticket.TicketTypeId = (int)newValue[field];
+                        break;
+                    case "CustomerId":
+                        ticket.CustomerId = (int)newValue[field];
+                        break;
+                    case "Description":
+                        ticket.Description = (string)newValue[field];
+                        break;
+                    //case "UserPassword":
+                    //    var u = (string) newValue["UserName"];
+                    //    user.UserPassword = Hlp.GetSha1(u, "QSDFGHJKLM@&987654321", (string)newValue[field]);
+                    //    break;
+                    case "Date":
+                        ticket.Date = (DateTime)newValue[field];
+                        break;
+                    case "Duree":
+                        ticket.Duree = (DateTime)newValue[field];
+                        break;
+
+                    case "DateDeResoudre":
+                        ticket.DateDeResoudre = (DateTime)newValue[field];
+                        break;
+                }
+            }
+            _appContext.SaveChanges();
             return ticket;
-        }
-
-        public async Task UpdateTicket(Ticket ticket)
-        {
-            _appContext.Tickets.Update(ticket);
-            await _appContext.SaveChangesAsync();
-        }
-
-        public async Task DeleteTicket(Ticket ticket)
-        {
-            _appContext.Remove(ticket);
-            await _appContext.SaveChangesAsync();
         }
     }
 }

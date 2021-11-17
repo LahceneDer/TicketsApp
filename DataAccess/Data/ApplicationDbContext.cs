@@ -10,18 +10,20 @@ namespace DataAccess.Data
 {
     public class ApplicationDbContext : DbContext
     {
+        public  ApplicationDbContext (){}
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {}
         public DbSet<Ticket> Tickets { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<TicketType> TicketTypes { get; set; }
         public DbSet<Note> Notes { get; set; }
-        public DbSet<Civilite> Civilites { get; set; }
         public DbSet<Permission> Permissions { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Attachment> Attachments { get; set; }
-
+        public DbSet<Module> Module { get; set; }
+        public DbSet<ModuleAction> ModuleActions { get; set; }
+        public DbSet<ModuleActionRole> ModuleActionRoles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

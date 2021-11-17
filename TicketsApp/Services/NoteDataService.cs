@@ -1,4 +1,5 @@
-﻿using DataAccess.Models;
+﻿using DataAccess.Data;
+using DataAccess.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +10,14 @@ using System.Threading.Tasks;
 
 namespace TicketsApp.Services
 {
-    public class NoteDataService : INoteDataService
+    public class NoteDataService 
     {
+        private readonly ApplicationDbContext _appContext;
+
+        public NoteDataService(ApplicationDbContext appContext)
+        {
+            _appContext = appContext;
+        }
         public Task<User> AddTicket(Note note)
         {
             throw new NotImplementedException();
@@ -21,9 +28,10 @@ namespace TicketsApp.Services
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Note>> GetAllNotes()
+        public List<Note> GetAllNotes()
         {
-            throw new NotImplementedException();
+            var notes = _appContext.Notes.ToList();
+            return notes;
         }
 
         public Task<User> GetTicketDetails(long noteId)

@@ -82,6 +82,28 @@ using TicketsApp.Shared;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 11 "C:\Users\lahcene\source\repos\TicketsApp\TicketsApp\_Imports.razor"
+using DevExpress.Blazor;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 2 "C:\Users\lahcene\source\repos\TicketsApp\TicketsApp\Pages\Ticket\TicketsList.razor"
+using DataAccess.Models;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 3 "C:\Users\lahcene\source\repos\TicketsApp\TicketsApp\Pages\Ticket\TicketsList.razor"
+using TicketsApp.Services;
+
+#line default
+#line hidden
+#nullable disable
+    [Microsoft.AspNetCore.Components.RouteAttribute("/Tickets")]
     public partial class TicketsList : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
@@ -89,6 +111,7 @@ using TicketsApp.Shared;
         {
         }
         #pragma warning restore 1998
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IJSRuntime JSRuntime { get; set; }
     }
 }
 #pragma warning restore 1591

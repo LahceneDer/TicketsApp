@@ -33,10 +33,14 @@ namespace TicketsApp
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));   
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddScoped<IUserDataService, UserDataService>();
+            //services.AddScoped<IUserDataService, UserDataService>();
             services.AddTransient<UserDataService>();
             services.AddTransient<TicketDataService>();
             services.AddTransient<CustomerDataService>();
+            services.AddTransient<CheckPermissionService>();
+            services.AddTransient<RoleDataService>();
+            services.AddTransient<NoteDataService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
