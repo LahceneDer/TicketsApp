@@ -10,9 +10,9 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using TicketsApp.Services;
 using Action = DataAccess.Models.Action;
-namespace TicketsApp.Pages.Ticket
+namespace TicketsApp.Pages.TicketType
 {
-    public partial class TicketsList
+    public partial class TicketTypesList
     {
         [Inject] 
         private UserDataService UserDataService { get; set; }
@@ -20,6 +20,8 @@ namespace TicketsApp.Pages.Ticket
         private RoleDataService RoleDataService { get; set; }
         [Inject]
         private TicketDataService TicketDataService { get; set; }
+        [Inject]
+        private TicketTypeDataService TicketTypeDataService { get; set; }
         [Inject]
         private NoteDataService NoteDataService { get; set; }
         [Inject]
@@ -32,6 +34,7 @@ namespace TicketsApp.Pages.Ticket
         public List<Note> Noteslist { get; set; }
         public List<DataAccess.Models.Ticket> Ticketslist { get; set; }
         public List<DataAccess.Models.Customer> Customerslist { get; set; }
+        public List<DataAccess.Models.TicketType> TicketTypeslist { get; set; }
         public int userId { get; set; } = 0;
         private bool PopupVisible { get; set; }
 
@@ -43,6 +46,7 @@ namespace TicketsApp.Pages.Ticket
                 Roleslist = RoleDataService.GetAllRoles();
                 Noteslist = NoteDataService.GetAllNotes();
                 Customerslist = CustomerDataService.GetAllCustomers();
+                TicketTypeslist = TicketTypeDataService.GetAllTicketTypes();
 
         }
 
@@ -50,21 +54,21 @@ namespace TicketsApp.Pages.Ticket
         {
             OnInitialized();
         }
-        void OnRowUpdating(DataAccess.Models.Ticket x, Dictionary<string, object> newValue)
+        void OnRowUpdating(DataAccess.Models.TicketType x, Dictionary<string, object> newValue)
         {
-            TicketDataService.UpdateTicket(x, newValue);
+            TicketTypeDataService.UpdateTicketType(x, newValue);
             InvokeAsync(StateHasChanged);
         }
-        void OnRowRemoving(DataAccess.Models.Ticket x)
+        void OnRowRemoving(DataAccess.Models.TicketType x)
         {
-            TicketDataService.DeleteTicket(x.TicketId);
+            TicketTypeDataService.DeleteTicketType(x.TicketTypeId);
             OnInitialized();
             InvokeAsync(StateHasChanged);
         }
         void OnRowInserting(Dictionary<string, object> newValue)
         {
-            var x = new DataAccess.Models.Ticket();
-            TicketDataService.AddTicket(TicketDataService.UpdateTicket(x, newValue));
+            var x = new DataAccess.Models.TicketType();
+            TicketTypeDataService.AddTicketType(TicketTypeDataService.UpdateTicketType(x, newValue));
             OnInitialized();
             InvokeAsync(StateHasChanged);
         }

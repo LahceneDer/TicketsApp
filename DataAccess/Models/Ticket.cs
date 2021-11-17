@@ -12,16 +12,16 @@ namespace DataAccess.Models
         public int UserId { get; set; }
         public int TicketTypeId { get; set; }
         public int CustomerId { get; set; }
+        public virtual Customer Customer { get; set; }
         public virtual User User { get; set; }
         public virtual TicketType TicketType { get; set; }
-        public virtual Customer Customer { get; set; }
         public Priorite Priorite { get; set; }
         public State State { get; set; }
-        public DateTime Date { get; set; }
+        public DateTime Date { get; set; } = DateTime.Now;
         public virtual List<Note> Notes { get; set; }
         public virtual List<Attachment> Attachments { get; set; }
-        public DateTime DateDeResoudre { get; set; }
-        public DateTime Duree { get; set; }
+        public DateTime DateDeResoudre { get; set; } = DateTime.Now;
+        public DateTime Duree { get; set; } = DateTime.Now;
         public string Description { get; set; }
 
 

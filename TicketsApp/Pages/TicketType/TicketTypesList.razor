@@ -1,0 +1,81 @@
+﻿@page "/TicketTypes"
+@using DataAccess.Models
+@using TicketsApp.Services
+@inject IJSRuntime JSRuntime
+@namespace TicketsApp.Pages.TicketType
+
+
+
+<h3 style="color: #2163ac" class="PageHeader"> Tickets</h3>
+
+<div class="GridActions">
+    <DxButton RenderStyle="ButtonRenderStyle.Dark" @onclick="RefreshGrid" RenderStyleMode="ButtonRenderStyleMode.Outline" Text="Actualiser" SizeMode="@SizeMode.Small" IconCssClass="undo" style="margin: 0.5em;" />
+
+</div>
+
+<DxDataGrid Data="@TicketTypeslist"
+            KeyFieldName="TicketId"
+            DataNavigationMode="DataGridNavigationMode.VirtualScrolling"
+            PopupEditFormHeaderText="Ajouter/Editer ticket Types"
+            PopupEditFormCssClass="my-style"
+            PageSize="25"
+            ShowFilterRow="true"
+            VerticalScrollableHeight="400"
+            VerticalScrollBarMode="ScrollBarMode.Auto"
+            RowRemoving="@((dataItem) => OnRowRemoving(dataItem))"
+            RowInserting="@((newValues) => OnRowInserting(newValues))"
+            RowUpdating="@((updatingDataItem, newValues) => OnRowUpdating(updatingDataItem, newValues))"
+            CssClass="mw-1100"
+            HorizontalScrollBarMode="ScrollBarMode.Visible"
+            EditMode="DataGridEditMode.PopupEditForm">
+    <Columns>
+        <DxDataGridCommandColumn Width="150px"></DxDataGridCommandColumn>
+        <DxDataGridColumn Width="80px" Field="TicketTypeId" EditorVisible="false" Caption="Id" />
+
+        <DxDataGridColumn Width="80px" Field="TicketTypeName" EditorVisible="true" Caption="Ticket Type Name" />
+    </Columns>
+</DxDataGrid>
+
+
+<style>
+    .closePassPop {
+        position: absolute;
+        bottom: -50px;
+        height: 32px;
+        font-size: 14px;
+        line-height: 13px;
+        right: 90px;
+    }
+
+    .passInput {
+        padding: 0;
+    }
+
+    .RolePopup {
+        max-width: 50% !important;
+    }
+
+    a.close-button {
+        float: right;
+        right: 10px;
+    }
+
+    .custom-header {
+        height: 45px;
+        padding: 10px;
+    }
+
+    .RolePopup .row {
+        height: 50px;
+    }
+
+    .editPassBtn {
+        font-size: 14px;
+        height: 30px;
+    }
+
+    .my-style {
+        min-width: 80%;
+        vertical-align: middle;
+    }
+</style>

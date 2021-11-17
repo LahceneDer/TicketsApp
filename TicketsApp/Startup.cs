@@ -36,6 +36,7 @@ namespace TicketsApp
             //services.AddScoped<IUserDataService, UserDataService>();
             services.AddTransient<UserDataService>();
             services.AddTransient<TicketDataService>();
+            services.AddTransient<TicketTypeDataService>();
             services.AddTransient<CustomerDataService>();
             services.AddTransient<CheckPermissionService>();
             services.AddTransient<RoleDataService>();

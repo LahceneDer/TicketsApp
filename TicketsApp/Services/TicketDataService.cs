@@ -57,19 +57,15 @@ namespace TicketsApp.Services
                     case "UserId":
                         ticket.UserId = (int)newValue[field];
                         break;
-                    case "TicketTypeId":
-                        ticket.TicketTypeId = (int)newValue[field];
-                        break;
+                    //case "TicketTypeId":
+                    //    ticket.TicketTypeId = (int)newValue[field];
+                    //    break;
                     case "CustomerId":
                         ticket.CustomerId = (int)newValue[field];
                         break;
                     case "Description":
                         ticket.Description = (string)newValue[field];
                         break;
-                    //case "UserPassword":
-                    //    var u = (string) newValue["UserName"];
-                    //    user.UserPassword = Hlp.GetSha1(u, "QSDFGHJKLM@&987654321", (string)newValue[field]);
-                    //    break;
                     case "Date":
                         ticket.Date = (DateTime)newValue[field];
                         break;

@@ -7,6 +7,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using DataAccess.Data;
+using Microsoft.AspNetCore.Components;
 using Microsoft.EntityFrameworkCore;
 
 namespace TicketsApp.Services
@@ -29,9 +30,16 @@ namespace TicketsApp.Services
 
         public void DeleteCustomer(int customerId)
         {
-            var c = _appContext.Customers.Find(customerId);
-            _appContext.Customers.Remove(c);
-            _appContext.SaveChanges();
+            try
+            {
+                var c = _appContext.Customers.Find(customerId);
+                _appContext.Customers.Remove(c);
+                _appContext.SaveChanges();
+            }
+            catch 
+            {
+                
+            }
         }
 
 
@@ -52,10 +60,6 @@ namespace TicketsApp.Services
             {
                 switch (field)
                 {
-
-                    case "CustomerId":
-                        customer.CustomerId = (int)newValue[field];
-                        break;
                     case "CustomerName":
                         customer.CustomerName = (string)newValue[field];
                         break;

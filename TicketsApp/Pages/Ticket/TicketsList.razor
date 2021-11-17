@@ -50,9 +50,30 @@
                 </DxComboBox>
             </EditTemplate>
         </DxDataGridComboBoxColumn>
+        <DxDataGridComboBoxColumn Width="180px" Field="@nameof(Customer.CustomerId)"
+                                  Caption="Customer"
+                                  Data="@Customerslist"
+                                  TextFieldName="@nameof(Customer.CustomerName)"
+                                  ValueFieldName="@nameof(Customer.CustomerId)">
+            <EditTemplate>
+                <DxComboBox Data="@Customerslist"
+                            ListRenderMode="ListRenderMode.Virtual"
+                            FilteringMode="DataGridFilteringMode.Contains"
+                            ClearButtonDisplayMode="@DataEditorClearButtonDisplayMode.Auto"
+                            TextFieldName="@nameof(Customer.CustomerName)"
+                            ValueFieldName="@nameof(Customer.CustomerId)"
+                            SelectedItemChanged="@(newCellValue => ((CellEditContext)context).OnChanged(newCellValue.CustomerId))"
+                            Value="@(((CellEditContext)context).CellValue)">
+                    <DxListEditorColumn FieldName="CustomerId" />
+                    <DxListEditorColumn FieldName="CustomerName" />
+                </DxComboBox>
+            </EditTemplate>
+        </DxDataGridComboBoxColumn>
         <DxDataGridDateEditColumn Width="80px" Field="DateDeResoudre" EditorVisible="true" Caption="Date De Resoudre" />
-        <DxDataGridDateEditColumn Width="80px" Field="Duree"  EditorVisible="true" Caption="Duree" />
-        <DxDataGridDateEditColumn Width="80px" Field="Date"  EditorVisible="true" Caption="Date" />
+        <DxDataGridDateEditColumn Width="80px" Field="Duree" EditorVisible="true" Caption="Duree" />
+        <DxDataGridDateEditColumn Width="80px" Field="Date" EditorVisible="true" Caption="Date" />
+        <DxDataGridColumn Width="80px" Field="Description" EditorVisible="true" Caption="Description" />
+
         @*<DxDataGridColumn Width="180px" Field="UserName" Caption="Login" />
         <DxDataGridColumn Width="180px" Field="UserNom" Caption="Nom" />
         <DxDataGridColumn Width="180px" Field="UserPrenom" Caption="Prénom" />

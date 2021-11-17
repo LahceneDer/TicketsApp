@@ -8,7 +8,7 @@ namespace DataAccess.Models
 {
     public class TicketType
     {
-        public long TicketTypeId { get; set; }
+        public int TicketTypeId { get; set; }
         public string TicketTypeName { get; set; }
         public List<Ticket> Tickets { get; set; }
     }
