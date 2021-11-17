@@ -38,6 +38,20 @@ namespace TicketsApp.Pages.Ticket
         public int userId { get; set; } = 0;
         private bool PopupVisible { get; set; }
 
+        public string[] Priorite = new[] {
+            "Faible",
+            "Moyenne",
+            "Elevee",
+           "Urgente"
+        };
+        public string[] State = new[] {
+            "Ouvert",
+            "En attente",
+            "En developpement",
+            "Resolu",
+            "Ferme"
+        };
+
         protected override void OnInitialized()
         {
  

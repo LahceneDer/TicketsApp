@@ -76,7 +76,12 @@ namespace TicketsApp.Services
                     case "Duree":
                         ticket.Duree = (DateTime)newValue[field];
                         break;
-
+                    case "State":
+                        ticket.State = (string)newValue[field];
+                        break;
+                    case "Priorite":
+                        ticket.Priorite = (string)newValue[field];
+                        break;
                     case "DateDeResoudre":
                         ticket.DateDeResoudre = (DateTime)newValue[field];
                         break;

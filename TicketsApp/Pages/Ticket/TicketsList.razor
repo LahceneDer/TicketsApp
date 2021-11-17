@@ -30,7 +30,7 @@
             CssClass="mw-1100"
             EditMode="DataGridEditMode.PopupEditForm">
     <Columns>
-        <DxDataGridCommandColumn Width="120px"></DxDataGridCommandColumn>
+        <DxDataGridCommandColumn Width="100px"></DxDataGridCommandColumn>
         <DxDataGridColumn Width="50px" Field="TicketId" Visible="true" EditorVisible="false" Caption="Id" />
         <DxDataGridComboBoxColumn Width="180px" Field="@nameof(User.UserId)"
                                   Caption="User"
@@ -89,9 +89,13 @@
                 </DxComboBox>
             </EditTemplate>
         </DxDataGridComboBoxColumn>
-        <DxDataGridDateEditColumn Width="120px" Field="DateDeResoudre" EditorVisible="true" Caption="Date De Resoudre" />
-        <DxDataGridDateEditColumn Width="120px" Field="Duree" DisplayFormat="T" EditorVisible="true" Caption="Duree" />
-        <DxDataGridDateEditColumn Width="120px" Field="Date" EditorVisible="true" Caption="Date" />
+        <DxDataGridDateEditColumn Width="150px" Field="DateDeResoudre" EditorVisible="true" Caption="Date De Resoudre" />
+        <DxDataGridDateEditColumn Width="150px" Field="Duree" DisplayFormat="T" EditorVisible="true" Caption="Duree" />
+        <DxDataGridDateEditColumn Width="150px" Field="Date" EditorVisible="true" Caption="Date" />
+        <DxDataGridComboBoxColumn  Width="80px" Field="@nameof(Ticket.Priorite)"
+                                  Data="@Priorite" />
+        <DxDataGridComboBoxColumn Width="80px" Field="@nameof(Ticket.State)"
+                                  Data="@State" />
         <DxDataGridColumn Width="80px" Field="Description" EditorVisible="true" Visible="false" Caption="Description" />
 
         @*<DxDataGridColumn Width="180px" Field="UserName" Caption="Login" />

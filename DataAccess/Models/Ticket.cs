@@ -15,8 +15,8 @@ namespace DataAccess.Models
         public virtual Customer Customer { get; set; }
         public virtual User User { get; set; }
         public virtual TicketType TicketType { get; set; }
-        public Priorite Priorite { get; set; }
-        public State State { get; set; }
+        public string Priorite { get; set; }
+        public string State { get; set; }
         public DateTime Date { get; set; } = DateTime.Now;
         public virtual List<Note> Notes { get; set; }
         public virtual List<Attachment> Attachments { get; set; }
@@ -27,19 +27,19 @@ namespace DataAccess.Models
 
 
     }
-    public enum Priorite
-    {
-        Faible,
-        Moyenne,
-        Elevee,
-        Urgente
-    }
-    public enum State
-    {
-        Ouvert,
-        Enattente,
-        Endeveloppement,
-        Resolu,
-        Ferme
-    }
+    //public enum Priorite
+    //{
+    //    Faible,
+    //    Moyenne,
+    //    Elevee,
+    //    Urgente
+    //}
+    //public enum State
+    //{
+    //    Ouvert,
+    //    Enattente,
+    //    Endeveloppement,
+    //    Resolu,
+    //    Ferme
+    //}
 }

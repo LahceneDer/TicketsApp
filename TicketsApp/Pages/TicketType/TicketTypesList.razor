@@ -20,7 +20,7 @@
             PopupEditFormCssClass="my-style"
             PageSize="25"
             ShowFilterRow="true"
-            ShowGroupPanel="true"
+            ShowGroupPanel="false"
             VerticalScrollableHeight="400"
             VerticalScrollBarMode="ScrollBarMode.Auto"
             RowRemoving="@((dataItem) => OnRowRemoving(dataItem))"
@@ -30,7 +30,7 @@
             HorizontalScrollBarMode="ScrollBarMode.Visible"
             EditMode="DataGridEditMode.PopupEditForm">
     <Columns>
-        <DxDataGridCommandColumn Width="80px"></DxDataGridCommandColumn>
+        <DxDataGridCommandColumn Width="40px"></DxDataGridCommandColumn>
         <DxDataGridColumn Width="50px" Field="TicketTypeId" Visible="true" EditorVisible="false" Caption="Id" />
         <DxDataGridColumn Width="100px" Field="TicketTypeName" EditorVisible="true" Caption="Ticket Type Name" />
 
