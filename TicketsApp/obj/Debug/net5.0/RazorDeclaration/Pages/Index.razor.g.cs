@@ -89,6 +89,13 @@ using DevExpress.Blazor;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 2 "C:\Users\lahcene\source\repos\TicketsApp\TicketsApp\Pages\Index.razor"
+using TicketsApp.Pages.MainDataGrid;
+
+#line default
+#line hidden
+#nullable disable
     [Microsoft.AspNetCore.Components.RouteAttribute("/")]
     public partial class Index : Microsoft.AspNetCore.Components.ComponentBase
     {

@@ -53,4 +53,10 @@ a, .btn-link {
         top: 0.5rem;
     }
 
-
+.countContent {
+    padding: 1%;
+    border-top: 2px solid black
+}
+.countContent .count-title {
+    text-align: center !important
+}

@@ -92,47 +92,51 @@
         <DxDataGridDateEditColumn Width="150px" Field="DateDeResoudre" EditorVisible="true" Caption="Date De Resoudre" />
         <DxDataGridDateEditColumn Width="150px" Field="Duree" DisplayFormat="T" EditorVisible="true" Caption="Duree" />
         <DxDataGridDateEditColumn Width="150px" Field="Date" EditorVisible="true" Caption="Date" />
-        <DxDataGridComboBoxColumn  Width="80px" Field="@nameof(Ticket.Priorite)"
-                                  Data="@Priorite" />
-        <DxDataGridComboBoxColumn Width="80px" Field="@nameof(Ticket.State)"
-                                  Data="@State" />
-        <DxDataGridColumn Width="80px" Field="Description" EditorVisible="true" Visible="false" Caption="Description" />
 
-        @*<DxDataGridColumn Width="180px" Field="UserName" Caption="Login" />
-        <DxDataGridColumn Width="180px" Field="UserNom" Caption="Nom" />
-        <DxDataGridColumn Width="180px" Field="UserPrenom" Caption="Prénom" />
-        <DxDataGridColumn Width="180px" Field="UserTelFixe" Visible="false" EditorVisible="true" Caption="Tél fixe" />
-        <DxDataGridColumn Width="180px" Field="UserTelMob" Caption="Tél portable" />
-        <DxDataGridColumn Width="180px" Field="UserFax" Visible="false" EditorVisible="true" Caption="Fax" />
-        <DxDataGridColumn Width="180px" Field="UserEmail" Visible="false" EditorVisible="true" Caption="Email" />
-        <DxDataGridColumn Width="180px" Field="UserDescript" Visible="false" EditorVisible="true" Caption="Déscription" />
-        <DxDataGridColumn Width="180px" Field="UserMaxCapacity" Caption="Déconnexion(minutes)" />
-        <DxDataGridColumn Width="180px" Field="UserPassword" Visible="false" EditorVisible="true" Caption="Mot de passe">
-
-        </DxDataGridColumn>*@
-
-        @*<DxDataGridDateEditColumn Width="180px" Field="UserDateNaiss" Visible="false" EditorVisible="true" Caption="Date de naissance" />*@
-        @*<DxDataGridComboBoxColumn Width="180px" Field="@nameof(Role.RoleId)"
-                                  Caption="Role"
-                                  Data="@Roleslist"
-                                  TextFieldName="@nameof(Role.RoleName)"
-                                  ValueFieldName="@nameof(Role.RoleId)">
+        <DxDataGridComboBoxColumn Width="180px" Field="TicketStateInt"
+                                  AllowFilter="true"
+                                  Caption="Ticket State"
+                                  Data="ticketStates"
+                                  FilteringMode="DataGridFilteringMode.Contains"
+                                  ClearButtonDisplayMode="@DataEditorClearButtonDisplayMode.Auto"
+                                  TextFieldName="Key"
+                                  ValueFieldName="Value">
             <EditTemplate>
-                <DxComboBox Data="@Roleslist"
+                <DxComboBox Data="ticketStates"
+                            AllowUserInput="true"
                             ListRenderMode="ListRenderMode.Virtual"
                             FilteringMode="DataGridFilteringMode.Contains"
                             ClearButtonDisplayMode="@DataEditorClearButtonDisplayMode.Auto"
-                            TextFieldName="@nameof(Role.RoleName)"
-                            ValueFieldName="@nameof(Role.RoleId)"
-                            SelectedItemChanged="@(newCellValue => ((CellEditContext)context).OnChanged(newCellValue.RoleId))"
+                            TextFieldName="Key"
+                            ValueFieldName="Value"
+                            SelectedItemChanged="@(newCellValue => ((CellEditContext)context).OnChanged(newCellValue.Value))"
                             Value="@(((CellEditContext)context).CellValue)">
-                    <DxListEditorColumn FieldName="RoleId" />
-                    <DxListEditorColumn FieldName="RoleName" />
                 </DxComboBox>
             </EditTemplate>
-        </DxDataGridComboBoxColumn>*@
+        </DxDataGridComboBoxColumn>
+        <DxDataGridComboBoxColumn Width="180px" Field="TicketPrioriteInt"
+                                  AllowFilter="true"
+                                  Caption="Ticket Priorite"
+                                  Data="ticketPriorites"
+                                  FilteringMode="DataGridFilteringMode.Contains"
+                                  ClearButtonDisplayMode="@DataEditorClearButtonDisplayMode.Auto"
+                                  TextFieldName="Key"
+                                  ValueFieldName="Value">
+            <EditTemplate>
+                <DxComboBox Data="ticketPriorites"
+                            AllowUserInput="true"
+                            ListRenderMode="ListRenderMode.Virtual"
+                            FilteringMode="DataGridFilteringMode.Contains"
+                            ClearButtonDisplayMode="@DataEditorClearButtonDisplayMode.Auto"
+                            TextFieldName="Key"
+                            ValueFieldName="Value"
+                            SelectedItemChanged="@(newCellValue => ((CellEditContext)context).OnChanged(newCellValue.Value))"
+                            Value="@(((CellEditContext)context).CellValue)">
+                </DxComboBox>
+            </EditTemplate>
+        </DxDataGridComboBoxColumn>
 
-
+        <DxDataGridColumn Width="80px" Field="Description" EditorVisible="true" Visible="false" Caption="Description" />
     </Columns>
 </DxDataGrid>
 

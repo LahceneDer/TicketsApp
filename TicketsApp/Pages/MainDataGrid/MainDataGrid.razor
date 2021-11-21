@@ -1,0 +1,168 @@
+﻿@using DataAccess.Models
+@using TicketsApp.Services
+@inject IJSRuntime JSRuntime
+@namespace TicketsApp.Pages.MainDataGrid
+
+<DxFormLayout ItemSizeMode="SizeMode.Small" CaptionPosition="@CaptionPosition.Horizontal">
+
+
+
+    <DxFormLayoutItem BeginRow="false" Caption="Date début" ColSpanLg="3">
+        <Template>
+            <DxDateEdit @bind-Date="@StartDate"
+                        ClearButtonDisplayMode="DataEditorClearButtonDisplayMode.Auto"
+                        NullText="Selectionner une date...">
+            </DxDateEdit>
+        </Template>
+    </DxFormLayoutItem>
+    <DxFormLayoutItem BeginRow="false" Caption="Date fin" ColSpanLg="3">
+        <Template>
+            <DxDateEdit @bind-Date="@EndDate"
+                        ClearButtonDisplayMode="DataEditorClearButtonDisplayMode.Auto"
+                        NullText="Selectionner une date...">
+            </DxDateEdit>
+        </Template>
+    </DxFormLayoutItem>
+    <DxFormLayoutItem BeginRow="false" Caption="" ColSpanLg="2">
+        <Template>
+            <DxButton Context="refresh" CssClass="" RenderStyle="ButtonRenderStyle.Primary" @onclick="RefreshGrid" SizeMode="SizeMode.Small" Text="Actualiser" />
+        </Template>
+    </DxFormLayoutItem>
+
+
+
+</DxFormLayout>
+<br />
+<hr />
+<div class="container countContent">
+    <div class="row">
+        <h4 class="count-title">Count Section</h4>
+        <DxFormLayout ItemSizeMode="SizeMode.Small" CaptionPosition="@CaptionPosition.Horizontal">
+
+            <DxFormLayoutItem BeginRow="true" Caption="open state ticket" ColSpanLg="3">
+                <Template>
+                    <DxSpinEdit Enabled="false" @bind-Value="@OuverStateCount"
+                                NullText="0" />
+                </Template>
+            </DxFormLayoutItem>
+            <DxFormLayoutItem BeginRow="false" Caption="closed state ticket" ColSpanLg="3">
+                <Template>
+                    <DxSpinEdit Enabled="false" @bind-Value="@FermeStateCount"
+                                NullText="0" />
+                </Template>
+            </DxFormLayoutItem>
+            <DxFormLayoutItem BeginRow="false" Caption="in development state ticket" ColSpanLg="3">
+                <Template>
+                    <DxSpinEdit Enabled="false" @bind-Value="@EnDevStateCount"
+                                NullText="0" />
+                </Template>
+            </DxFormLayoutItem>
+            <DxFormLayoutItem BeginRow="false" Caption="resolu state" ColSpanLg="3">
+                <Template>
+                    <DxSpinEdit Enabled="false" @bind-Value="@ResoluStateCount"
+                                NullText="0" />
+                </Template>
+            </DxFormLayoutItem>
+            <DxFormLayoutItem BeginRow="false" Caption="pending state" ColSpanLg="3">
+                <Template>
+                    <DxSpinEdit Enabled="false" @bind-Value="@EnAttenteStateCount"
+                                NullText="0" />
+                </Template>
+            </DxFormLayoutItem>
+        </DxFormLayout>
+    </div>
+</div>
+<DxDataGrid Data="@FilteredTicketslist"
+            KeyFieldName="TicketId"
+            DataNavigationMode="DataGridNavigationMode.VirtualScrolling"
+            ShowGroupPanel="true"
+            HorizontalScrollBarMode="ScrollBarMode.Visible"
+            PopupEditFormHeaderText="Add/Edit ticket"
+            PopupEditFormCssClass="my-style"
+            PageSize="25"
+            ShowFilterRow="true"
+            VerticalScrollableHeight="400"
+            VerticalScrollBarMode="ScrollBarMode.Auto"
+            CssClass="mw-1100"
+            EditMode="DataGridEditMode.PopupEditForm">
+    <Columns>
+        <DxDataGridColumn Width="50px" Field="TicketId" Visible="true" EditorVisible="false" Caption="Ticket Id" />
+        <DxDataGridComboBoxColumn Width="150px" Field="@nameof(User.UserId)"
+                                  Caption="User"
+                                  Data="@Userslist"
+                                  TextFieldName="@nameof(User.UserName)"
+                                  ValueFieldName="@nameof(User.UserId)">
+            <EditTemplate>
+                <DxComboBox Data="@Userslist"
+                            ListRenderMode="ListRenderMode.Virtual"
+                            FilteringMode="DataGridFilteringMode.Contains"
+                            ClearButtonDisplayMode="@DataEditorClearButtonDisplayMode.Auto"
+                            TextFieldName="@nameof(User.UserName)"
+                            ValueFieldName="@nameof(User.UserId)"
+                            SelectedItemChanged="@(newCellValue => ((CellEditContext)context).OnChanged(newCellValue.UserId))"
+                            Value="@(((CellEditContext)context).CellValue)">
+                    <DxListEditorColumn FieldName="UserId" />
+                    <DxListEditorColumn FieldName="UserName" />
+                </DxComboBox>
+            </EditTemplate>
+        </DxDataGridComboBoxColumn>
+        <DxDataGridComboBoxColumn Width="150px" Field="@nameof(Customer.CustomerId)"
+                                  Caption="Customer"
+                                  Data="@Customerslist"
+                                  TextFieldName="@nameof(Customer.CustomerName)"
+                                  ValueFieldName="@nameof(Customer.CustomerId)">
+            <EditTemplate>
+                <DxComboBox Data="@Customerslist"
+                            ListRenderMode="ListRenderMode.Virtual"
+                            FilteringMode="DataGridFilteringMode.Contains"
+                            ClearButtonDisplayMode="@DataEditorClearButtonDisplayMode.Auto"
+                            TextFieldName="@nameof(Customer.CustomerName)"
+                            ValueFieldName="@nameof(Customer.CustomerId)"
+                            SelectedItemChanged="@(newCellValue => ((CellEditContext)context).OnChanged(newCellValue.CustomerId))"
+                            Value="@(((CellEditContext)context).CellValue)">
+                    <DxListEditorColumn FieldName="CustomerId" />
+                    <DxListEditorColumn FieldName="CustomerName" />
+                </DxComboBox>
+            </EditTemplate>
+        </DxDataGridComboBoxColumn>
+        <DxDataGridComboBoxColumn Width="150px" Visible="true" EditorVisible="true" Field="@nameof(TicketType.TicketTypeId)"
+                                  Caption="TicketType"
+                                  Data="@TicketTypeslist"
+                                  TextFieldName="@nameof(TicketType.TicketTypeName)"
+                                  ValueFieldName="@nameof(TicketType.TicketTypeId)">
+            <EditTemplate>
+                <DxComboBox Data="@TicketTypeslist"
+                            ListRenderMode="ListRenderMode.Virtual"
+                            FilteringMode="DataGridFilteringMode.Contains"
+                            ClearButtonDisplayMode="@DataEditorClearButtonDisplayMode.Auto"
+                            TextFieldName="@nameof(TicketType.TicketTypeName)"
+                            ValueFieldName="@nameof(TicketType.TicketTypeId)"
+                            SelectedItemChanged="@(newCellValue => ((CellEditContext)context).OnChanged(newCellValue.TicketTypeId))"
+                            Value="@(((CellEditContext)context).CellValue)">
+                    <DxListEditorColumn FieldName="TicketTypeId" />
+                    <DxListEditorColumn FieldName="TicketTypeName" />
+                </DxComboBox>
+            </EditTemplate>
+        </DxDataGridComboBoxColumn>
+        <DxDataGridDateEditColumn Field="@nameof(Ticket.Date)" Width="150px" Caption="Ticket date"></DxDataGridDateEditColumn>
+    </Columns>
+</DxDataGrid>
+
+@*<hr />
+@if (FilteredTicketslist == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+<DxPivotGrid Data="@Ticketslist" CssClass="w-100">
+
+    <DxPivotGridField Field="@nameof(Ticket.User)" Caption="UserName" SortOrder="PivotGridSortOrder.Ascending" Area="PivotGridFieldArea.Row" />
+    <DxPivotGridField Field="@nameof(Ticket.TicketState)"  Area="PivotGridFieldArea.Column" Caption="OuverStateCount" />
+
+    <DxPivotGridField Field="@nameof(Ticket.TicketState)" Caption="TicketState" Area="PivotGridFieldArea.Data" SummaryType="PivotGridSummaryType.Count" />
+
+</DxPivotGrid>
+}*@
+
+

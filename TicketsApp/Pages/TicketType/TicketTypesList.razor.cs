@@ -38,6 +38,7 @@ namespace TicketsApp.Pages.TicketType
         public int userId { get; set; } = 0;
         private bool PopupVisible { get; set; }
 
+
         protected override void OnInitialized()
         {
  

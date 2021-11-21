@@ -1,4 +1,5 @@
-﻿<StaticWebAssets Version="1.0">
-  <ContentRoot BasePath="/" Path="C:\Users\lahcene\source\repos\TicketsApp\TicketsApp\obj\Debug\net5.0\scopedcss\bundle\" />
-  <ContentRoot BasePath="_content/DevExpress.Blazor" Path="C:\Program Files (x86)\DevExpress 21.1\Components\Offline Packages\devexpress.blazor\21.1.3\build\..\staticwebassets\" />
+﻿<?xml version="1.0" encoding="utf-8"?>
+<StaticWebAssets Version="1.0">
+  <ContentRoot BasePath="/" Path="c:\src\TicketsApp\obj\Debug\net5.0\scopedcss\bundle\" />
+  <ContentRoot BasePath="_content/DevExpress.Blazor" Path="c:\.nuget\fallbackpackages\devexpress.blazor\21.1.3\staticwebassets\" />
 </StaticWebAssets>

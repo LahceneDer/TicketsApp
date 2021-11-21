@@ -4,9 +4,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using DevExpress.Data.Filtering;
 using Microsoft.EntityFrameworkCore;
 
 namespace TicketsApp.Services
@@ -14,6 +16,7 @@ namespace TicketsApp.Services
     public class TicketDataService
     {
         private readonly ApplicationDbContext _appContext;
+
 
         public TicketDataService(ApplicationDbContext appContext)
         {
@@ -39,7 +42,7 @@ namespace TicketsApp.Services
 
         public List<Ticket> GetAllTickets()
         {
-            var tickets = _appContext.Tickets.ToList();
+            var tickets= _appContext.Tickets.ToList();
             return tickets;
         }
 
@@ -76,11 +79,11 @@ namespace TicketsApp.Services
                     case "Duree":
                         ticket.Duree = (DateTime)newValue[field];
                         break;
-                    case "State":
-                        ticket.State = (string)newValue[field];
+                    case "ticketStates":
+                        ticket.TicketState = (TicketState)newValue[field];
                         break;
-                    case "Priorite":
-                        ticket.Priorite = (string)newValue[field];
+                    case "ticketPriorites":
+                        ticket.TicketPriorite = (TicketPriorite)newValue[field];
                         break;
                     case "DateDeResoudre":
                         ticket.DateDeResoudre = (DateTime)newValue[field];
@@ -89,6 +92,13 @@ namespace TicketsApp.Services
             }
             _appContext.SaveChanges();
             return ticket;
+        }
+
+        public IEnumerable<Ticket> GetTicketByDate(DateTime StartDate, DateTime EndDate)
+        {
+            var Alltickets = _appContext.Tickets.ToList();
+            return Alltickets.Where(t => t.Date >= StartDate & t.Date <= EndDate);
+
         }
     }
 }

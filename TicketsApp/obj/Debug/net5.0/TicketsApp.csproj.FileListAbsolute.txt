@@ -106,3 +106,5 @@ C:\Users\lahcene\source\repos\TicketsApp\TicketsApp\obj\Debug\net5.0\RazorDeclar
 C:\Users\lahcene\source\repos\TicketsApp\TicketsApp\obj\Debug\net5.0\Razor\Pages\Customer\CustomersList.razor.g.cs
 C:\Users\lahcene\source\repos\TicketsApp\TicketsApp\obj\Debug\net5.0\RazorDeclaration\Pages\TicketType\TicketTypesList.razor.g.cs
 C:\Users\lahcene\source\repos\TicketsApp\TicketsApp\obj\Debug\net5.0\Razor\Pages\TicketType\TicketTypesList.razor.g.cs
+C:\Users\lahcene\source\repos\TicketsApp\TicketsApp\obj\Debug\net5.0\RazorDeclaration\Pages\MainDataGrid\MainDataGrid.razor.g.cs
+C:\Users\lahcene\source\repos\TicketsApp\TicketsApp\obj\Debug\net5.0\Razor\Pages\MainDataGrid\MainDataGrid.razor.g.cs
